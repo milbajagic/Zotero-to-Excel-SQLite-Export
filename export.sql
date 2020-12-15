@@ -3,41 +3,48 @@
 SELECT
 /*Identify which fields to SELECT for your output. The left identifier represents the database abbreviated name (set below in the FROM and JOIN statements) and the database field name we want, while the right identifier (after the AS statement) represents the column header as it will appear in your output. */
 i.itemID AS ITEMID, 
-c1.firstName AS AUTHOR_1_FIRST,
-c1.lastName AS AUTHOR_1_LAST,
+--c1.firstName AS AUTHOR_1_FIRST,
+--c1.lastName AS AUTHOR_1_LAST,
 --ct1.creatorType AS AUTHOR_1_TYPE,
-c2.firstName AS AUTHOR_2_FIRST,
-c2.lastName AS AUTHOR_2_LAST,
+--c2.firstName AS AUTHOR_2_FIRST,
+--c2.lastName AS AUTHOR_2_LAST,
 --ct2.creatorType AS AUTHOR_2_TYPE,
-c3.firstName AS AUTHOR_3_FIRST,
-c3.lastName AS AUTHOR_3_LAST,
+--c3.firstName AS AUTHOR_3_FIRST,
+--c3.lastName AS AUTHOR_3_LAST,
 --ct3.creatorType AS AUTHOR_3_TYPE,
-c4.firstName AS AUTHOR_4_FIRST,
-c4.lastName AS AUTHOR_4_LAST,
+--c4.firstName AS AUTHOR_4_FIRST,
+--c4.lastName AS AUTHOR_4_LAST,
 --ct4.creatorType AS AUTHOR_4_TYPE,
-c5.firstName AS AUTHOR_5_FIRST,
-c5.lastName AS AUTHOR_5_LAST,
+--c5.firstName AS AUTHOR_5_FIRST,
+--c5.lastName AS AUTHOR_5_LAST,
 --ct5.creatorType AS AUTHOR_5_TYPE,
-title.value AS TITLE,
+--title.value AS TITLE,
 -- t.typeName AS TYPE,
-d.value AS DATE,
+--d.value AS DATE,
 -- issn.value AS ISSN,
 -- isbn.value AS ISBN,
-doi.value AS DOI,
+--doi.value AS DOI,
 -- url.value AS URL, 
 -- pub.value AS PUBLICATION_TITLE, 
-journalAbbreviation.value AS JOURNAL_ABBREVIATION,
-issue.value AS ISSUE,
-volume.value AS VOLUME,
-series.value AS SERIES,
-pages.value AS PAGES,
-publisher.value AS PUBLISHER,
-place.value AS PLACE,
+--journalAbbreviation.value AS JOURNAL_ABBREVIATION,
+--issue.value AS ISSUE,
+--volume.value AS VOLUME,
+--series.value AS SERIES,
+--pages.value AS PAGES,
+--publisher.value AS PUBLISHER,
+--place.value AS PLACE,
 -- proceedingsTitle.value AS PROCEEDINGS,
 -- bookTitle.value AS BOOK,
 -- university.value AS UNIVERSITY,
 -- archiveName.value AS ARCHIVE_NAME,
 -- archiveLocation.value AS ARCHIVE_LOCATION,
+(c1.lastName || ' ' || c1.firstName || '.' || IFNULL(c2.lastName,'') || ' ' || IFNULL(c2.firstName,'') || '.' || IFNULL(c3.lastName,'') || ' ' || IFNULL(c3.firstName,'') || '.' ||
+IFNULL(c4.lastName,'') || ' ' || IFNULL(c4.firstName,'') || '.' || IFNULL(c5.lastName,'') || ' ' || IFNULL(c5.firstName,'') || '.' 
+|| title.value || '.' 
+|| journalAbbreviation.value || ' ' 
+|| d.value || ';'
+|| volume.value || '(' || IFNULL(issue.value,'') || ')' || ':'
+|| pages.value || '.' || 'doi:' || doi.value ) AS REF,
 abstract.value AS ABSTRACT,
 t1.name AS TAG_1,
 t2.name AS TAG_2,
@@ -218,7 +225,7 @@ WHERE deletedItems.itemID IS NULL
 /* If you would like to add any additional selection criteria, this is the place to do it. Here are some examples that you may wish to use. Merely remove the double-hyphen from the beginning of a condition to make it active in the query. */
 /* Begin optional conditions. */
 /* Only show entries with exclude tag in first position */
-AND t1.name = "exclude"
+-- AND t1.name = "exclude"
 /* Only show journal articles. */
 --AND t.typeName = "journalArticle"
 /* Only show items where the first author's last name is Smith. */
