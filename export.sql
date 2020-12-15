@@ -2,28 +2,28 @@
 /* Basic SELECT statement. */
 SELECT
 /*Identify which fields to SELECT for your output. The left identifier represents the database abbreviated name (set below in the FROM and JOIN statements) and the database field name we want, while the right identifier (after the AS statement) represents the column header as it will appear in your output. */
--- i.itemID AS ITEMID, 
+i.itemID AS ITEMID, 
 c1.firstName AS AUTHOR_1_FIRST,
 c1.lastName AS AUTHOR_1_LAST,
-ct1.creatorType AS AUTHOR_1_TYPE,
+--ct1.creatorType AS AUTHOR_1_TYPE,
 c2.firstName AS AUTHOR_2_FIRST,
 c2.lastName AS AUTHOR_2_LAST,
-ct2.creatorType AS AUTHOR_2_TYPE,
+--ct2.creatorType AS AUTHOR_2_TYPE,
 c3.firstName AS AUTHOR_3_FIRST,
 c3.lastName AS AUTHOR_3_LAST,
-ct3.creatorType AS AUTHOR_3_TYPE,
+--ct3.creatorType AS AUTHOR_3_TYPE,
 c4.firstName AS AUTHOR_4_FIRST,
 c4.lastName AS AUTHOR_4_LAST,
-ct4.creatorType AS AUTHOR_4_TYPE,
+--ct4.creatorType AS AUTHOR_4_TYPE,
 c5.firstName AS AUTHOR_5_FIRST,
 c5.lastName AS AUTHOR_5_LAST,
-ct5.creatorType AS AUTHOR_5_TYPE,
+--ct5.creatorType AS AUTHOR_5_TYPE,
 title.value AS TITLE,
 -- t.typeName AS TYPE,
--- d.value AS DATE,
+d.value AS DATE,
 -- issn.value AS ISSN,
 -- isbn.value AS ISBN,
--- doi.value AS DOI,
+doi.value AS DOI,
 -- url.value AS URL, 
 -- pub.value AS PUBLICATION_TITLE, 
 journalAbbreviation.value AS JOURNAL_ABBREVIATION,
@@ -69,50 +69,50 @@ LEFT JOIN
 creators c1
 ON
 c1.creatorID = (SELECT creatorID FROM creators WHERE creatorID = (SELECT creatorID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 0,1) LIMIT 1)
-LEFT JOIN
-creatorTypes ct1
-ON
-ct1.creatorTypeID = (SELECT creatorTypeID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 0,1)
+-- LEFT JOIN
+--creatorTypes ct1
+--ON
+--ct1.creatorTypeID = (SELECT creatorTypeID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 0,1)
 LEFT JOIN
 creators c2
 ON
 c2.creatorID = (SELECT creatorID FROM creators WHERE creatorID = (SELECT creatorID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 1,1) LIMIT 1)
-LEFT JOIN
-creatorTypes ct2
-ON
-ct2.creatorTypeID = (SELECT creatorTypeID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 1,1)
+--LEFT JOIN
+--creatorTypes ct2
+--ON
+--ct2.creatorTypeID = (SELECT creatorTypeID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 1,1)
 LEFT JOIN
 creators c3
 ON
 c3.creatorID = (SELECT creatorID FROM creators WHERE creatorID = (SELECT creatorID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 2,1) LIMIT 1)
-LEFT JOIN
-creatorTypes ct3
-ON
-ct3.creatorTypeID = (SELECT creatorTypeID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 2,1)
+--LEFT JOIN
+--creatorTypes ct3
+--ON
+--ct3.creatorTypeID = (SELECT creatorTypeID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 2,1)
 LEFT JOIN
 creators c4
 ON
 c4.creatorID = (SELECT creatorID FROM creators WHERE creatorID = (SELECT creatorID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 3,1) LIMIT 1)
-LEFT JOIN
-creatorTypes ct4
-ON
-ct4.creatorTypeID = (SELECT creatorTypeID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 3,1)
+--LEFT JOIN
+--creatorTypes ct4
+--ON
+--ct4.creatorTypeID = (SELECT creatorTypeID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 3,1)
 LEFT JOIN
 creators c5
 ON
 c5.creatorID = (SELECT creatorID FROM creators WHERE creatorID = (SELECT creatorID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 4,1) LIMIT 1)
-LEFT JOIN
-creatorTypes ct5
-ON
-ct5.creatorTypeID = (SELECT creatorTypeID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 4,1)
+--LEFT JOIN
+--creatorTypes ct5
+--ON
+--ct5.creatorTypeID = (SELECT creatorTypeID FROM itemCreators WHERE itemID = i.itemID ORDER BY orderIndex LIMIT 4,1)
 -- LEFT JOIN
 -- itemDataValues issn
 -- ON
 -- issn.valueID = (SELECT itemData.valueID FROM itemData WHERE itemData.fieldID = (SELECT fieldID FROM fields WHERE fields.fieldName = 'ISSN' LIMIT 1) AND itemData.itemID=i.itemID LIMIT 1)
--- LEFT JOIN
--- itemDataValues doi
--- ON
--- doi.valueID = (SELECT itemData.valueID FROM itemData WHERE itemData.fieldID = (SELECT fieldID FROM fields WHERE fields.fieldName = 'DOI' LIMIT 1) AND itemData.itemID=i.itemID LIMIT 1)
+LEFT JOIN
+itemDataValues doi
+ON
+doi.valueID = (SELECT itemData.valueID FROM itemData WHERE itemData.fieldID = (SELECT fieldID FROM fields WHERE fields.fieldName = 'DOI' LIMIT 1) AND itemData.itemID=i.itemID LIMIT 1)
 -- LEFT JOIN
 -- itemDataValues isbn
 -- ON
